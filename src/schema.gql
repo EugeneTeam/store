@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @upper on FIELD_DEFINITION
+
+type CustomerInfo {
+  email: String!
+  phone: String!
+  firstName: String!
+  lastName: String!
+  patronymic: String
+  birthday: DateTime
+  gender: UserGender!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum UserGender {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+type Query {
+  registration(input: CustomerInputRegistration!): CustomerInfo!
+}
+
+input CustomerInputRegistration {
+  password: String!
+  email: String!
+  phone: String!
+  firstName: String!
+  lastName: String!
+  patronymic: String
+  birthday: DateTime
+  gender: UserGender = UNKNOWN
+}
