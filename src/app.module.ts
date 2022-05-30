@@ -16,8 +16,10 @@ import {
 import { MailerModule } from '@nestjs-modules/mailer';
 
 import { models } from './entities';
-import {CustomerModule} from "./main/customer/customer.module";
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { TokenModule } from './modules/token/token.module';
+import { CustomerModule } from './modules/customer/customer.module';
+import { CustomerInfoModule } from './modules/customer-info/customer-info.module';
 
 @Module({
   imports: [
@@ -31,7 +33,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
       },
       preview: process.env.NODE_ENV === 'development',
       template: {
-        dir: join(process.cwd(), 'src/utils/mailer/templates'),
+        dir: join(process.cwd(), 'src/modules/mailer/templates'),
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true
@@ -67,7 +69,9 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
       autoLoadModels: true,
       models,
     }),
+    TokenModule,
     CustomerModule,
+    CustomerInfoModule,
   ],
   controllers: [],
   providers: [],

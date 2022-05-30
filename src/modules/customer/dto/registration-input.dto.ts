@@ -1,17 +1,14 @@
 import {
   IsDate,
-  IsEmail,
-  IsEnum,
-  IsNotEmpty,
-  IsOptional,
-  IsPhoneNumber,
+  IsEmail, IsEnum,
+  IsNotEmpty, IsOptional, IsPhoneNumber,
   IsString,
   MaxLength,
-  MinLength
+  MinLength,
 } from 'class-validator';
-import { UserGender } from '../enums/user-gender.enum';
+import { UserGender } from '../../../enums/user-gender.enum';
 
-export class RegistrationsInputDto {
+export class RegistrationCustomerInputDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(6, { message: 'Password too short' })

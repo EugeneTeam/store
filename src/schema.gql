@@ -4,13 +4,20 @@
 
 directive @upper on FIELD_DEFINITION
 
-type CustomerInfo {
+type Token {
+  customerId: String!
+  name: String!
+  token: String!
+}
+
+type CustomerInfoType {
+  password: String!
   email: String!
   phone: String!
   firstName: String!
   lastName: String!
-  patronymic: String
-  birthday: DateTime
+  patronymic: String!
+  birthday: DateTime!
   gender: UserGender!
 }
 
@@ -25,11 +32,34 @@ enum UserGender {
   UNKNOWN
 }
 
-type Query {
-  registration(input: CustomerInputRegistration!): CustomerInfo!
+type CustomerType {
+  status: UserStatus!
+  customerInfo: CustomerInfoType!
 }
 
-input CustomerInputRegistration {
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
+
+type Query {
+  test: String!
+}
+
+type Mutation {
+  createToken(createTokenInput: CreateTokenInput!): Token!
+  registration(createCustomerInput: CreateCustomerInput!): CustomerType!
+  createCustomerInfo(createCustomerInfoInput: CreateCustomerInfoInput!): CustomerInfoType!
+}
+
+input CreateTokenInput {
+  customerId: String!
+  name: String!
+  token: String!
+}
+
+input CreateCustomerInput {
   password: String!
   email: String!
   phone: String!
@@ -37,5 +67,16 @@ input CustomerInputRegistration {
   lastName: String!
   patronymic: String
   birthday: DateTime
+  gender: UserGender = UNKNOWN
+}
+
+input CreateCustomerInfoInput {
+  customerId: String!
+  email: String!
+  phone: String!
+  firstName: String!
+  lastName: String!
+  patronymic: String!
+  birthday: DateTime!
   gender: UserGender = UNKNOWN
 }

@@ -1,12 +1,12 @@
-export const USER = {
-    STATUSES: {
-        ACTIVE: 'ACTIVE',
-        INACTIVE: 'INACTIVE',
-        BANNED: 'BANNED'
-    },
-    GENDER: {
-        FEMALE: 'FEMALE',
-        MALE: 'MALE',
-        UNKNOWN: 'UNKNOWN'
-    }
+export const USER_STATUSES = {
+    ACTIVE: 'ACTIVE',
+    INACTIVE: 'INACTIVE',
+    BANNED: 'BANNED'
 }
+
+export const  USER_GENDER = {
+    FEMALE: 'FEMALE',
+    MALE: 'MALE',
+    UNKNOWN: 'UNKNOWN'
+}
+

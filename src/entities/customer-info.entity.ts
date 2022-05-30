@@ -6,7 +6,7 @@ import {
     Model
 } from 'sequelize-typescript';
 
-import { USER } from '../constants/users.constant';
+import { USER_GENDER } from '../constants/users.constant';
 import { Customer } from './customer.entity';
 
 @Table({
@@ -38,11 +38,11 @@ export class CustomerInfo extends Model<CustomerInfo> {
     @Column({
         allowNull: false,
         type: DataType.ENUM(
-            USER.GENDER.FEMALE,
-            USER.GENDER.MALE,
-            USER.GENDER.UNKNOWN
+            USER_GENDER.FEMALE,
+            USER_GENDER.MALE,
+            USER_GENDER.UNKNOWN
         ),
-        defaultValue: USER.GENDER.UNKNOWN
+        defaultValue: USER_GENDER.UNKNOWN
     })
     gender: string;
 }

@@ -3,15 +3,17 @@ import {
     Column,
     HasOne,
     Table,
-    Model, HasMany
+    Model,
+    HasMany
 } from 'sequelize-typescript';
 import { hashSync } from 'bcrypt';
 
-import { USER } from '../constants/users.constant';
+import { USER_STATUSES } from '../constants/users.constant';
 import { CustomerInfo } from './customer-info.entity';
 import { uniquePK } from '../config/columns-types';
 import { BonusCards } from './bonus-card.entity';
 import { Order } from './order.entity';
+import { Token } from './token.entity';
 
 @Table({
     timestamps: false,
@@ -30,11 +32,11 @@ export class Customer extends Model<Customer> {
     @Column({
         allowNull: false,
         type: DataType.ENUM(
-            USER.STATUSES.ACTIVE,
-            USER.STATUSES.INACTIVE,
-            USER.STATUSES.BANNED
+            USER_STATUSES.ACTIVE,
+            USER_STATUSES.INACTIVE,
+            USER_STATUSES.BANNED
         ),
-        defaultValue: USER.STATUSES.INACTIVE
+        defaultValue: USER_STATUSES.INACTIVE
     })
     status: string;
 
@@ -46,4 +48,7 @@ export class Customer extends Model<Customer> {
 
     @HasMany(() => Order)
     orders: Order[];
+
+    @HasMany(() => Token)
+    tokens: Token[];
 }

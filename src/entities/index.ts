@@ -24,6 +24,7 @@ import { Action } from './action.entity';
 import { Permission } from './permission.entity';
 import { User } from './user.entity';
 import { UserPermission } from './user-permission.entity';
+import { Token } from './token.entity';
 
 export const models: Array<any> = [
     CustomerInfo,
@@ -52,4 +53,5 @@ export const models: Array<any> = [
     Permission,
     User,
     UserPermission,
+    Token
 ]
