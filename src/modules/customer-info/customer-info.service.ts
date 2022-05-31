@@ -15,4 +15,12 @@ export class CustomerInfoService {
   create(createCustomerInfoInput: RegistrationCustomerInfoInputDto, transaction: any = null) {
     return this.customerInfo.create(createCustomerInfoInput, { ...(transaction && { transaction }) });
   }
+
+  async findCustomerId(id: string): Promise<CustomerInfo> {
+    return this.customerInfo.findOne({
+      where: {
+        customerId: id
+      }
+    });
+  }
 }

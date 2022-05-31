@@ -10,5 +10,4 @@ export class CustomerType {
 
   @Field(() => CustomerInfoType)
   customerInfo: CustomerInfoType;
-
 }

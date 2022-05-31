@@ -6,7 +6,7 @@ import {
     Model
 } from 'sequelize-typescript';
 
-import { USER_GENDER } from '../constants/users.constant';
+import { USER_GENDER } from '../constants/user.constant';
 import { Customer } from './customer.entity';
 
 @Table({

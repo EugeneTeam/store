@@ -4,8 +4,6 @@ import { UserGender } from '../../../enums/user-gender.enum';
 
 @ObjectType()
 export class CustomerInfoType {
-  @Field(() => String)
-  password: string;
 
   @Field(() => String)
   email: string;
@@ -19,10 +17,10 @@ export class CustomerInfoType {
   @Field(() => String)
   lastName: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   patronymic: string;
 
-  @Field(() => Date)
+  @Field(() => Date, { nullable: true })
   birthday: Date;
 
   @Field(() => UserGender, { defaultValue: UserGender.UNKNOWN })

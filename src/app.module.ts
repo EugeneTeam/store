@@ -20,6 +20,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { TokenModule } from './modules/token/token.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { CustomerInfoModule } from './modules/customer-info/customer-info.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -72,6 +73,7 @@ import { CustomerInfoModule } from './modules/customer-info/customer-info.module
     TokenModule,
     CustomerModule,
     CustomerInfoModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],

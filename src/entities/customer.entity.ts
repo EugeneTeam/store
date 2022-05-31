@@ -8,7 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { hashSync } from 'bcrypt';
 
-import { USER_STATUSES } from '../constants/users.constant';
+import { USER_STATUSES } from '../constants/user.constant';
 import { CustomerInfo } from './customer-info.entity';
 import { uniquePK } from '../config/columns-types';
 import { BonusCards } from './bonus-card.entity';
