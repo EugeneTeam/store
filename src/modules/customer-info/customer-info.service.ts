@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { RegistrationCustomerInfoInputDto } from './dto/registration-input.dto';
-import { CustomerInfo } from '../../entities/customer-info.entity';
 import { InjectModel } from '@nestjs/sequelize';
+
+import { CustomerInfo } from '../../entities/customer-info.entity';
+import { SignUpPart2Dto } from './dto/sign-up-part-2.dto';
 
 @Injectable()
 export class CustomerInfoService {
@@ -12,8 +13,8 @@ export class CustomerInfoService {
     protected readonly customerInfo: typeof CustomerInfo
   ) {}
 
-  create(createCustomerInfoInput: RegistrationCustomerInfoInputDto, transaction: any = null) {
-    return this.customerInfo.create(createCustomerInfoInput, { ...(transaction && { transaction }) });
+  create(input: SignUpPart2Dto, transaction: any = null) {
+    return this.customerInfo.create(input, { ...(transaction && { transaction }) });
   }
 
   async findCustomerId(id: string): Promise<CustomerInfo> {

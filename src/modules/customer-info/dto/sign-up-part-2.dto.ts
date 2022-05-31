@@ -5,17 +5,24 @@ import {
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
-  IsString, IsUUID,
+  IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
 import { UserGender } from '../../../enums/user-gender.enum';
 
-export class RegistrationCustomerInfoInputDto {
+export class SignUpPart2Dto {
   @IsString()
   @IsNotEmpty()
   @IsUUID()
   customerId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(6, { message: 'Password too short' })
+  @MaxLength(20, { message: 'Password too long' })
+  password: string;
 
   @IsString()
   @IsNotEmpty()

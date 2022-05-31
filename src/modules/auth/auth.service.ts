@@ -8,10 +8,9 @@ import { JwtService } from '@nestjs/jwt';
 
 import { compare } from 'bcrypt';
 
-import { AuthPayload, AuthToken } from './interfaces';
+import { AuthPayload } from './interfaces';
 import { CustomerService } from '../customer/customer.service';
 import { Customer } from '../../entities/customer.entity';
-import { CustomerInfo } from '../../entities/customer-info.entity';
 
 
 @Injectable()
@@ -23,12 +22,13 @@ export class AuthService {
   ) {}
 
   async login({ email, password }): Promise<string> {
-    const customer: Customer = await this.userService.findByLogin(email);
+    const customer: Customer | null = await this.userService.findByLogin(email);
 
-    const validatePassword: boolean = await compare(
-      password,
-      customer.password
-    );
+    if (!customer) {
+      throw new Error('Customer not found');
+    }
+
+    const validatePassword: boolean = await compare(password, customer.password);
 
     if (!validatePassword) {
       throw new HttpException('Invalid credential', HttpStatus.BAD_REQUEST);
@@ -44,8 +44,8 @@ export class AuthService {
     });
   }
 
-  async validateByPayload(payload: AuthPayload): Promise<any> {
-    const user: any = await this.userService.findByLogin(payload?.login);
+  async validateByPayload(payload: AuthPayload): Promise<Customer> {
+    const user: Customer | null = await this.userService.findByLogin(payload?.login);
 
     if (!user) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);

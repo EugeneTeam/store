@@ -12,7 +12,7 @@ export class TokenService {
     @InjectModel(Token) protected readonly token: typeof Token
   ) {}
 
-  async create(createTokenInput: CreateTokenDto, transaction: any = null): Promise<Token> {
-    return this.token.create(createTokenInput, { ...(transaction && { transaction }) });
+  async create(input: CreateTokenDto, transaction: any = null): Promise<Token> {
+    return this.token.create(input, { ...(transaction && { transaction }) });
   }
 }

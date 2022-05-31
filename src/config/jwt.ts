@@ -6,4 +6,4 @@ export default () => ({
     },
   },
   JwtSalt: 15
-})
+});

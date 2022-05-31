@@ -1,10 +1,11 @@
 import { InputType, Field } from '@nestjs/graphql';
+
 import { UserGender } from '../../../enums/user-gender.enum';
 
 @InputType()
-export class CreateCustomerInput {
+export class SingUpInput {
   @Field(() => String)
-  password: string;
+  customerId: string;
 
   @Field(() => String)
   email: string;
@@ -18,10 +19,10 @@ export class CreateCustomerInput {
   @Field(() => String)
   lastName: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   patronymic: string;
 
-  @Field(() => Date, { nullable: true })
+  @Field(() => Date)
   birthday: Date;
 
   @Field(() => UserGender, { defaultValue: UserGender.UNKNOWN })

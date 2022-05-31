@@ -1,8 +1,7 @@
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { compare } from 'bcrypt';
 
-import { RegistrationCustomerInputDto } from './dto/registration-input.dto';
 import { Customer } from '../../entities/customer.entity';
 import { CustomerInfoService } from '../customer-info/customer-info.service';
 import { TokenService } from '../token/token.service';
@@ -12,7 +11,7 @@ import { TOKEN_NAMES } from '../../constants/token.constant';
 import { Token } from '../../entities/token.entity';
 import { CustomerInfo } from '../../entities/customer-info.entity';
 import { AuthToken } from '../auth/interfaces';
-import { compare } from 'bcrypt';
+import { SignUpPart1Dto } from './dto/sign-up-part-1.dto';
 
 @Injectable()
 export class CustomerService {
@@ -24,20 +23,20 @@ export class CustomerService {
     @Inject(MailerService) protected readonly mailerService: MailerService
   ) {}
 
-  async create(createCustomerInput: RegistrationCustomerInputDto): Promise<Customer> {
+  async create(input: SignUpPart1Dto): Promise<Customer> {
     return this.customer.sequelize.transaction(async transaction => {
 
       const { url, token } = this.mailerService.generateConfirmationUrl();
 
       const newCustomer: Customer = await this.customer.create({
-        password: createCustomerInput.password
+        password: input.password
       }, { ...(transaction && { transaction }) });
 
-      delete createCustomerInput.password;
+      delete input.password;
 
-      await this.customerInfoService.create({
+      const newCustomerInfo: CustomerInfo = await this.customerInfoService.create({
         customerId: newCustomer.id,
-        ...createCustomerInput,
+        ...input,
       }, transaction);
 
       await this.tokenService.create({
@@ -46,7 +45,11 @@ export class CustomerService {
         token
       }, transaction);
 
-      await this.mailerService.sendMail(TEMPLATES_NAME.CONFIRM_PASSWORD, { url });
+      await this.mailerService.sendMail(
+        TEMPLATES_NAME.CONFIRM_PASSWORD,
+        { url },
+        newCustomerInfo.email
+      );
 
       return newCustomer;
     });
@@ -77,10 +80,7 @@ export class CustomerService {
       }
     });
 
-    const validatePassword: boolean = await compare(
-      credential.password,
-      user.password
-    );
+    const validatePassword: boolean = await compare(credential.password, user.password);
 
     if (!validatePassword) {
       throw new HttpException('Invalid credential', HttpStatus.BAD_REQUEST);

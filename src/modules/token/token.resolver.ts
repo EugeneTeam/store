@@ -13,9 +13,9 @@ export class TokenResolver {
 
   @Mutation(() => Token)
   createToken(
-    @Args({ name: 'createTokenInput', type: () => CreateTokenInput }) createTokenInput: CreateTokenDto
+    @Args({ name: 'input', type: () => CreateTokenInput }) input: CreateTokenDto
   ) {
-    return this.tokenService.create(createTokenInput);
+    return this.tokenService.create(input);
   }
 
   @Query(() => String)

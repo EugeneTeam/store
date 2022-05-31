@@ -12,10 +12,10 @@ export class MailerService {
     private readonly mailer: Nodemailer
   ) {}
 
-  async sendMail(template: TEMPLATES_NAME, data: any = {}): Promise<void> {
+  async sendMail(template: TEMPLATES_NAME, data: any = {}, email:  string): Promise<void> {
     await this.mailer.sendMail({
-      to: 'wtf.evgesha@gmail.com',
-      from: 'wtf.evgesha@gmail.com',
+      to: process.env.MAILER_MAIL_FROM,
+      from: email,
       subject: SUBJECT[template],
       template: join(process.cwd(), `src/modules/mailer/templates/${template}.html`),
       context: data,

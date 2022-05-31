@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { UserGender } from '../../../enums/user-gender.enum';
 
-export class RegistrationCustomerInputDto {
+export class SignUpPart1Dto {
   @IsString()
   @IsNotEmpty()
   @MinLength(6, { message: 'Password too short' })

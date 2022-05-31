@@ -47,11 +47,11 @@ type Query {
 }
 
 type Mutation {
-  createToken(createTokenInput: CreateTokenInput!): Token!
-  registration(createCustomerInput: CreateCustomerInput!): CustomerType!
+  createToken(input: CreateTokenInput!): Token!
+  signUp(input: SignUpInput!): CustomerType!
   login(email: String!, password: String!): String!
   confirmEmail(token: String!): CustomerType!
-  createCustomerInfo(createCustomerInfoInput: CreateCustomerInfoInput!): CustomerInfoType!
+  createCustomerInfoForCustomer(input: SignUpInput!): CustomerInfoType!
 }
 
 input CreateTokenInput {
@@ -60,7 +60,7 @@ input CreateTokenInput {
   token: String!
 }
 
-input CreateCustomerInput {
+input SignUpInput {
   password: String!
   email: String!
   phone: String!
@@ -68,16 +68,5 @@ input CreateCustomerInput {
   lastName: String!
   patronymic: String
   birthday: DateTime
-  gender: UserGender = UNKNOWN
-}
-
-input CreateCustomerInfoInput {
-  customerId: String!
-  email: String!
-  phone: String!
-  firstName: String!
-  lastName: String!
-  patronymic: String!
-  birthday: DateTime!
   gender: UserGender = UNKNOWN
 }
