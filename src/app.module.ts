@@ -21,6 +21,7 @@ import { TokenModule } from './modules/token/token.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { CustomerInfoModule } from './modules/customer-info/customer-info.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -73,7 +74,8 @@ import { AuthModule } from './modules/auth/auth.module';
     TokenModule,
     CustomerModule,
     CustomerInfoModule,
-    AuthModule
+    AuthModule,
+    ProductModule
   ],
   controllers: [],
   providers: [],

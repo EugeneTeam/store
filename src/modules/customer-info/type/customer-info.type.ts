@@ -4,6 +4,8 @@ import { UserGender } from '../../../enums/user-gender.enum';
 
 @ObjectType()
 export class CustomerInfoType {
+  @Field(() => String)
+  id: string;
 
   @Field(() => String)
   email: string;
